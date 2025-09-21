@@ -1,2 +1,4 @@
-  snowflake-snowpark-python
-  streamlit
+streamlit
+snowflake-snowpark-python
+snowflake-connector-python
+streamlit-snowflake-connection
