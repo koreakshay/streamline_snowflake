@@ -1,4 +1,4 @@
-streamlit>=1.40
-snowflake-connector-python>=3.0
-snowflake-snowpark-python>=1.14
-pandas>=2.0
+# requirements.txt
+python=3.11.*
+snowflake-snowpark-python
+streamlit
