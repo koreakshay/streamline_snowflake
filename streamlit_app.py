@@ -1,4 +1,5 @@
 # Import python packages
+import requests
 import streamlit as st
 from snowflake.snowpark.functions import col
 
@@ -30,11 +31,11 @@ if ingredients_list:
     ingredients_string = ''
 
     for fruit_chosen in ingredients_list:
-        ingredients_string += fruit_chosen
-    # st.write(ingredients_string)
-
-    my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
-            values ('""" + ingredients_string + """','""" +name_on_order+ """')"""
+      ingredients_string += fruit_chosen
+      st.subheader(fruit_chosen + ' Nutritional Information')
+      smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
+      sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+      my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order) values ('""" + ingredients_string + """','""" +name_on_order+ """')"""
 
     # st.write(my_insert_stmt)
     # st.stop()
@@ -44,7 +45,4 @@ if ingredients_list:
         st.success(f"Your smooothie is ordered, {name_on_order}!", icon='✅')
 
 
-import requests
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-# st.text(smoothiefroot_response)
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+
